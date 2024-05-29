@@ -1,20 +1,21 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export class NewsItem extends Component {
   render() {
     let {title,description,imageUrl,newsurl}=this.props;
     return (
       <div>
-        <div className="card my-3" style={{width: "18rem"}}>
+        <div className="card my-3" >
           <img src={imageUrl} style={{height:"12rem"}} className="card-img-top" alt="/" />
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">
                 {description}
             </p>
-            <a href={newsurl} target="blank" className="btn btn-sm btn-primary">
+            <Link to={newsurl} target="blank" className="btn btn-sm btn-primary">
               Read More
-            </a>
+            </Link>
           </div>
         </div>
       </div>
