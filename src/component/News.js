@@ -7,24 +7,28 @@ export class News extends Component {
   static defaultProps = {
     country: "in",
     pageSize: 8,
-    category: "sports",
+    category: 'health',
+    totalResults:0,
   };
-  static proTypes = {
-    country: PropTypes.string.isRequired,
-    pageSize: PropTypes.number.isRequired,
-    category: PropTypes.string.isRequired,
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+    totalResults: PropTypes.number,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title=this.props.category
   }
   async UpdateNews() {
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b686d950b5b0476b94acebf0e291e3e1&page=1&pageSize=${this.props.pageSize}`;
+    console.log(this.state.page);
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=b686d950b5b0476b94acebf0e291e3e1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
     let data = await fetch(url);
     let parsedata = await data.json();
@@ -39,14 +43,20 @@ export class News extends Component {
     this.UpdateNews();
   }
 
-  handleprev = async () => {
-    this.setState({ pageSize: this.state.page - 1 });
-    this.UpdateNews();
+  handleprev = () => {
+    this.setState(
+      (prevState) => ({ page: prevState.page - 1 }),
+      () => this.UpdateNews() 
+    );
   };
-  handlenext = async () => {
-    this.setState({ pageSize: this.state.page + 1 });
-    this.UpdateNews();
+
+  handlenext = () => {
+    this.setState(
+      (prevState) => ({ page: prevState.page + 1 }), 
+      () => this.UpdateNews() 
+    );
   };
+  
 
   render() {
     return (
