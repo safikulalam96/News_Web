@@ -37,7 +37,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="sports"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="sports"
                 />
@@ -49,7 +49,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="business"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="business"
                 />
@@ -61,7 +61,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="technology"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="technology"
                 />
@@ -73,7 +73,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="general"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="general"
                 />
@@ -85,7 +85,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="science"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="science"
                 />
@@ -97,7 +97,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="health"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="health"
                 />
@@ -109,7 +109,7 @@ export default class App extends Component {
                 <News
                   setProgress={this.setProgress}
                   key="entertainment"
-                  pageSize={8}
+                  pageSize={6}
                   country="in"
                   category="entertainment"
                 />
