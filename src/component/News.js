@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
-// import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const News = (props) => {
@@ -9,11 +9,14 @@ const News = (props) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  document.title = props.category;
+
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   const UpdateNews = async () => {
     props.setProgress(10);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=6ac0d583a1bd451b83d9668cccd5ce92&page=${page}&pageSize=${props.pageSize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.api}&page=${page}&pageSize=${props.pageSize}`;
     setLoading(true);
     let data = await fetch(url);
     let parsedata = await data.json();
@@ -24,12 +27,17 @@ const News = (props) => {
     props.setProgress(100);
   };
   useEffect(() => {
+    document.title = `${capitalizeFirstLetter(props.category)} - NewsWala`;
     UpdateNews();
-  });
+  }, []);
 
   const fetchMoreData = async () => {
+    const url = `https://newsapi.org/v2/top-headlines?country=${
+      props.country
+    }&category=${props.category}&apiKey=${props.api}&page=${
+      page + 1
+    }&pageSize=${props.pageSize}`;
     setPage(page + 1);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=6ac0d583a1bd451b83d9668cccd5ce92&page=${page}&pageSize=${props.pageSize}`;
     let data = await fetch(url);
     let parsedata = await data.json();
     setarticles(articles.concat(parsedata.articles));
@@ -39,7 +47,9 @@ const News = (props) => {
   return (
     <div>
       <div className="container  my-4">
-        <h1 className="text-center">Top Heading of the Day</h1>
+        <h1 className="text-center" style={{ marginTop: "90px" }}>
+          Top Heading of the Day
+        </h1>
         {loading && <Spinner />}
         <InfiniteScroll
           dataLength={articles.length}
@@ -79,16 +89,3 @@ const News = (props) => {
 };
 
 export default News;
-
-// News.defaultProps = {
-//   country: "in",
-//   pageSize: 8,
-//   category: "health",
-//   totalResults: 0,
-// };
-// News.propTypes = {
-//   country: PropTypes.string,
-//   pageSize: PropTypes.number,
-//   category: PropTypes.string,
-//   totalResults: PropTypes.number,
-// };
